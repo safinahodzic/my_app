@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Entries</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quote</th>
+            <th>Action</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry[0] }}</td>
+            <td class="quote">{{ entry[1] }}</td>
+            <td>
+                <form action="/delete_entry/{{ loop.index }}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Add Entry</h2>
+    <form action="/add_entry" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="quote">Quote:</label><br>
+        <textarea id="quote" name="quote" required></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
